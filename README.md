@@ -1,6 +1,3 @@
-
-# p-transfom Documentation
-
 ## Introduction
 
 **p-transfom** is a Node.js library that simplifies transforming streams, supporting asynchronous, out-of-order, and parallel processing. It allows you to manipulate data streams in an efficient and scalable way, handling both object streams and binary data.
