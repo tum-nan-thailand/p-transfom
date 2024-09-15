@@ -15,5 +15,8 @@
     "url": "https://github.com/tum-nan-thailand/p-transfom/issues"
   },
   "homepage": "https://github.com/tum-nan-thailand/p-transfom#readme",
-  "description": ""
+  "description": "",
+  "publishConfig": {
+    "registry": "https://www.npmjs.com/package/p-transfom"
+  }
 }
