@@ -129,7 +129,3 @@ DEBUG=p-transform:* node yourScript.js
 ## Contributing
 
 If you want to contribute to the development of **p-transfom**, feel free to submit issues or pull requests on GitHub. Make sure to follow the contribution guidelines in the repository.
-
-## License
-
-**p-transfom** is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
