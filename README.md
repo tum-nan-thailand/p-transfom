@@ -1,19 +1,17 @@
-## Introduction
 
-**p-transfom** is a Node.js library that simplifies transforming streams, supporting asynchronous, out-of-order, and parallel processing. It allows you to manipulate data streams in an efficient and scalable way, handling both object streams and binary data.
+# p-transfom
+
+**p-transfom** is a Node.js library that simplifies transforming data streams, supporting asynchronous, out-of-order, and parallel processing. It provides utility functions to manipulate data in an efficient and scalable way, handling both object streams and string data conversions.
 
 ## Table of Contents
 
 1. [Installation](#installation)
 2. [Basic Usage](#basic-usage)
 3. [API Reference](#api-reference)
-    - [PTransform Constructor](#ptransform-constructor)
-    - [Transform Function](#transform-function)
-    - [Flush Function](#flush-function)
+   - [Transform Functions](#transform-functions)
 4. [Error Handling](#error-handling)
-5. [Debugging](#debugging)
-6. [Contributing](#contributing)
-7. [License](#license)
+5. [Contributing](#contributing)
+6. [License](#license)
 
 ## Installation
 
@@ -27,105 +25,58 @@ Ensure that you have Node.js installed on your system.
 
 ## Basic Usage
 
-Here is a basic example of how to use the `p-transfom` library:
+The `p-transfom` library exports multiple utility functions to transform data. Below is a basic example of how to use the functions provided:
 
 ```javascript
-const PTransform = require('p-transfom');
+const { snakeToCamel, camelToSnake, toUpperCase, toLowerCase, customTransform } = require('p-transfom');
 
-// Create a transform stream
-const transformStream = new PTransform({
-  transform: async (chunk) => {
-    // Perform an asynchronous transformation on the stream chunk
-    const processedChunk = await performAsyncOperation(chunk);
-    return processedChunk; // Return the transformed chunk
-  },
-  flush: (done) => {
-    // Optional: Perform any final operations when the stream is finished
-    console.log("Transformation complete");
-    done(); // Signal that the flush is complete
-  }
-});
+// Convert text from snake_case to camelCase
+const snakeCaseText = 'example_text';
+const camelCaseText = snakeToCamel(snakeCaseText);
+console.log(camelCaseText); // Output: exampleText
 
-// Using the transform stream in a pipeline
-sourceStream
-  .pipe(transformStream)   // Apply the transformation
-  .pipe(destinationStream); // Write the transformed data
+// Convert text from camelCase to snake_case
+const camelCaseString = 'exampleText';
+const snakeCaseString = camelToSnake(camelCaseString);
+console.log(snakeCaseString); // Output: example_text
+
+// Use customTransform to apply a custom transformation function
+const customData = 'example text';
+const upperCaseData = customTransform(customData, toUpperCase);
+console.log(upperCaseData); // Output: EXAMPLE TEXT
+
+// Convert to lowercase
+const lowerCaseData = toLowerCase('EXAMPLE TEXT');
+console.log(lowerCaseData); // Output: example text
 ```
-
-### Explanation:
-
-- **PTransform**: Initializes the stream transformation.
-- **transform**: A function that performs the actual transformation of each chunk in the stream. This can be asynchronous if necessary.
-- **flush**: A function that runs when all chunks have been processed, useful for finalizing tasks.
 
 ## API Reference
 
-### PTransform Constructor
+### Transform Functions
 
-Creates a new `PTransform` instance.
+- **snakeToCamel(data: string): string**
+  - Converts a `snake_case` string to `camelCase`.
 
-```javascript
-new PTransform(options)
-```
+- **camelToSnake(data: string): string**
+  - Converts a `camelCase` string to `snake_case`.
 
-#### Options:
-- **transform** (Function): The function that processes each chunk. This function can return a promise if asynchronous processing is required.
-- **flush** (Function, optional): Called once when the stream has processed all data. Useful for any cleanup or final actions.
+- **toUpperCase(data: string): string**
+  - Converts a string to uppercase.
 
-### Transform Function
+- **toLowerCase(data: string): string**
+  - Converts a string to lowercase.
 
-The `transform` function is the core of the library, responsible for handling each chunk of data as it passes through the stream.
-
-```javascript
-transform: async (chunk, encoding, callback) => {
-  // Process chunk
-}
-```
-
-- **chunk**: The data being passed through the stream.
-- **encoding**: The encoding type of the chunk (useful when working with strings).
-- **callback**: A function to call when the transformation is complete.
-
-### Flush Function
-
-The optional `flush` method is called when the stream has finished processing all chunks, allowing for any final actions.
-
-```javascript
-flush: (done) => {
-  // Perform any cleanup or final operations
-  done();
-}
-```
+- **customTransform(data: any, transformFunction: Function): any**
+  - Applies a custom transformation function to the provided data.
 
 ## Error Handling
 
-Errors can be handled by listening to the `error` event in streams. Here's an example:
-
-```javascript
-transformStream.on('error', (err) => {
-  console.error('Error during transformation:', err);
-});
-```
-
-## Debugging
-
-To debug transformations, you can log the data as it passes through the stream:
-
-```javascript
-const debugStream = new PTransform({
-  transform: (chunk) => {
-    console.log('Chunk before transformation:', chunk);
-    return chunk; // Return the chunk unchanged for debugging purposes
-  }
-});
-```
-
-Alternatively, use environment variables to enable logging:
-
-```bash
-DEBUG=p-transform:* node yourScript.js
-```
+Errors should be handled by validating input data types before using the transformation functions. If any function receives incorrect data types, it will return the input without modification.
 
 ## Contributing
 
 If you want to contribute to the development of **p-transfom**, feel free to submit issues or pull requests on GitHub. Make sure to follow the contribution guidelines in the repository.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/tum-nan-thailand/p-transfom#readme) file for more details.
