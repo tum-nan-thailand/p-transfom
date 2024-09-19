@@ -13,8 +13,6 @@
    - [Case Conversion Functions](#case-conversion-functions)
    - [Custom Transform](#custom-transform)
 4. [Error Handling](#error-handling)
-5. [Contributing](#contributing)
-6. [License](#license)
 
 ## Installation
 
